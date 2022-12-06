@@ -1,8 +1,8 @@
 applications:
-- name: shahriyarapp
+- name: rimoapp
   path: target/mtdbservice-0.0.1-SNAPSHOT.war
   random-route: true
-  memory: 512M
+  memory: 1024M
   buildpacks:
   - sap_java_buildpack
   services:

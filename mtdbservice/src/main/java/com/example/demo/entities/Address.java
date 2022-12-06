@@ -3,28 +3,66 @@ package com.example.demo.entities;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 
+import org.apache.olingo.odata2.api.annotation.edm.EdmEntitySet;
+import org.apache.olingo.odata2.api.annotation.edm.EdmEntityType;
+import org.apache.olingo.odata2.api.annotation.edm.EdmKey;
+import org.apache.olingo.odata2.api.annotation.edm.EdmProperty;
 import org.hibernate.annotations.GenericGenerator;
 
+import lombok.Getter;
+import lombok.Setter;
+
+@EdmEntitySet
+@EdmEntityType
 @Entity
 public class Address {
 	
 	@Id
 	@GeneratedValue(generator = "uuid2")
-	@GenericGenerator(name="uuid2", strategy = "org.hibernate.id.UUIDGenerator")
-	@Column(nullable = false, name="ID")
+	@GenericGenerator(name="uuid2", strategy="org.hibernate.id.UUIDGenerator")
+	@Column(nullable=false, name="ID")
+	@EdmKey
+	@EdmProperty
 	private String addressId;
 	@Column(name="TYPE")
+	@EdmProperty
 	private String addressType;
 	@Column(name="STREET")
+	@EdmProperty
 	private String street;
 	@Column(name="CITY")
+	@EdmProperty
 	private String city;
 	@Column(name="COUNTRY")
+	@EdmProperty
 	private String country;
 	@Column(name="REGION")
+	@EdmProperty
 	private String region;
+	
+	@ManyToOne
+	@JoinColumn(name="vendor_id", referencedColumnName="id")
+	@Setter
+	@Getter
+	public Vendor vendor;
+	
+	public Address() {
+		
+	}
+	public Address(String addressId, String addressType, String street, String city, String country, String region) {
+		super();
+		this.addressId = addressId;
+		this.addressType = addressType;
+		this.street = street;
+		this.city = city;
+		this.country = country;
+		this.region = region;
+	}
 	public String getAddressId() {
 		return addressId;
 	}
@@ -61,16 +99,8 @@ public class Address {
 	public void setRegion(String region) {
 		this.region = region;
 	}
-	public Address(String addressId, String addressType, String street, String city, String country, String region) {
-		super();
-		this.addressId = addressId;
-		this.addressType = addressType;
-		this.street = street;
-		this.city = city;
-		this.country = country;
-		this.region = region;
+	public void setVendor(Vendor vendor2) {
+		// TODO Auto-generated method stub		
 	}
-	public Address() {
 		
-	}
 }

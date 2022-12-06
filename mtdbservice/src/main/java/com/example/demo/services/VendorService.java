@@ -41,7 +41,8 @@ public class VendorService {
 		}
 		
 		public Vendor createVendor(Vendor vendorrec) {
-			vendorrec.setCode("NEW1");
+			vendorrec.setId("NEW1");
+//			vendorrec.setCode("NEW1");
 			//TODO: Later insert data to database
 			return vendorDB.save(vendorrec);
 		}
